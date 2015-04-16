@@ -27,39 +27,22 @@ class Main extends PApplet {
 
   def drawPattern() = {
     if(shapes.shapes.length > 0){
-
+        fill(17,130,67)
+      val yDist = if(shapes.maxDistances.y == 0) 1 else shapes.maxDistances.y
+      val xDist = if(shapes.maxDistances.x == 0) 1 else shapes.maxDistances.x
+      for(y <- 0 to (FIELDS, yDist.asInstanceOf[Int]))
+        for(x <- 0 to (FIELDS, xDist.asInstanceOf[Int]))
+          shapes.shapes(0).draww(new PVector(x*GRID_SIZE, y*GRID_SIZE), true)
     }
   }
 
-    /**
-     * * void drawPattern() {
-  if (initialShapes.getShapes().size()==0) {
-    return;
-  }
-  //  boolean drawChild = initialShapes.getShapes().size() > 2 ? true : false;
-  fill(17, 130, 67);
-  int yDist = (int)initialShapes.getMaxDistances().y/GRID_SIZE;
-  int xDist = (int)initialShapes.getMaxDistances().x/GRID_SIZE;
-  yDist += 1;
-  xDist += 1;
-  //if (yDist != 0 && xDist != 0) {
-  if (yDist == 0) yDist = 1;
-  if (xDist == 0) xDist = 1;
-
-  for (int y = 0; y < FIELDS; ) {
-    for (int x = 0; x < FIELDS; ) {
-      println("drawing @ "+(x*GRID_SIZE)+", "+(y*GRID_SIZE));
-      initialShapes.getShapes().get(0).draww(new PVector(x*GRID_SIZE, y*GRID_SIZE), true);
-      x += xDist;
+  def drawInitialShapes() = {
+    if (showInitial) {
+      noFill();
+      stroke(240, 0, 230);
+      for ( s <- shapes.shapes) s.drawAtInitialPos
     }
-    y+= yDist;
   }
-}
-
-     */cd Br  
-  /
-
-  def drawInitialShapes() = {}
 
   override def mouseReleased(): Unit = {
     val pos = getCurrentPosition

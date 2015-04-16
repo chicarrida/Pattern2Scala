@@ -14,10 +14,10 @@ abstract class GeoShape(val position: PVector, val p: PApplet = new PApplet) {
     distanceToParent.y = Math.abs(parent.position.y - position.y)
   }
 
-  def draww(parent: GeoShape, drawChild: Boolean = false): Unit = {
+  def draww(parentPos: PVector, drawChild: Boolean = false): Unit = {
     if (position == null) {
-      val x = parent.position.x + (if (distanceToParent != null) distanceToParent.x else 0)
-      val y = parent.position.x + (if (distanceToParent != null) distanceToParent.x else 0)
+      val x = parentPos.x + (if (distanceToParent != null) distanceToParent.x else 0)
+      val y = parentPos.x + (if (distanceToParent != null) distanceToParent.x else 0)
       p.stroke(0, 0, 255)
       transformAndDraw(x, y)
       if (drawChild) {
