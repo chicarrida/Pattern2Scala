@@ -1,6 +1,6 @@
 import processing.core.{PApplet, PVector}
 
-class Hexagon ( pos: PVector,  _p: PApplet = new PApplet) extends GeoShape(pos, _p){
+class Hexagon ( pos: PVector,  _p: PApplet) extends GeoShape(pos, _p){
   def drawShape(): Unit ={
     p.beginShape()
     p.vertex(-20, 0)

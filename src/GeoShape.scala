@@ -3,7 +3,7 @@ import processing.core.{PVector, PApplet}
 import scala.beans.BeanProperty
 
 
-abstract class GeoShape(val position: PVector, val p: PApplet = new PApplet) {
+abstract class GeoShape(val position: PVector, val p: PApplet) {
 
   protected var distanceToParent = new PVector()
   @BeanProperty var child: GeoShape = null
@@ -15,15 +15,14 @@ abstract class GeoShape(val position: PVector, val p: PApplet = new PApplet) {
   }
 
   def draww(parentPos: PVector, drawChild: Boolean = false): Unit = {
-    if (position == null) {
       val x = parentPos.x + (if (distanceToParent != null) distanceToParent.x else 0)
-      val y = parentPos.x + (if (distanceToParent != null) distanceToParent.x else 0)
+      val y = parentPos.y + (if (distanceToParent != null) distanceToParent.x else 0)
       p.stroke(0, 0, 255)
+      println("draw at "+x+", "+y)
       transformAndDraw(x, y)
       if (drawChild) {
         drawChlid(x toInt, y toInt)
       }
-    }
   }
 
   def transformAndDraw(x: Float, y: Float): Unit = {
@@ -35,7 +34,7 @@ abstract class GeoShape(val position: PVector, val p: PApplet = new PApplet) {
 
   def drawChlid(x: Int, y: Int): Unit = {
     if (child != null) {
-      child.drawChlid(x, y)
+      child.draww(new PVector(x, y), true)
     }
   }
 
@@ -46,12 +45,12 @@ abstract class GeoShape(val position: PVector, val p: PApplet = new PApplet) {
   }
 }
   object GeoShape {
-    def getShape(s: Int, pos: PVector): GeoShape = {
+    def getShape(s: Int, pos: PVector, p: PApplet): GeoShape = {
       s match {
-        case 1 => return new Rectangle(pos)
-        case 2 => return new Hexagon(pos)
-        case 3 => return new Triangle(pos)
-        case _ => return new Rectangle(pos)
+        case 1 => return new Rectangle(pos,p)
+        case 2 => return new Hexagon(pos,p)
+        case 3 => return new Triangle(pos,p)
+        case _ => return new Rectangle(pos,p)
       }
     }
   }

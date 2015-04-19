@@ -27,12 +27,14 @@ class Main extends PApplet {
 
   def drawPattern() = {
     if(shapes.shapes.length > 0){
-        fill(17,130,67)
-      val yDist = if(shapes.maxDistances.y == 0) 1 else shapes.maxDistances.y
-      val xDist = if(shapes.maxDistances.x == 0) 1 else shapes.maxDistances.x
+      fill(17,130,67)
+      val yDist = if(shapes.maxDistances.y == 0) 1 else (shapes.maxDistances.y/GRID_SIZE)+1
+      val xDist = if(shapes.maxDistances.x == 0) 1 else (shapes.maxDistances.x/GRID_SIZE)+1
       for(y <- 0 to (FIELDS, yDist.asInstanceOf[Int]))
-        for(x <- 0 to (FIELDS, xDist.asInstanceOf[Int]))
-          shapes.shapes(0).draww(new PVector(x*GRID_SIZE, y*GRID_SIZE), true)
+        for(x <- 0 to (FIELDS, xDist.asInstanceOf[Int])) {
+          shapes.shapes(0).draww(new PVector(x * GRID_SIZE, y * GRID_SIZE), true)
+          //println("x: " + x+" y: "+y)
+        }
     }
   }
 
@@ -59,7 +61,7 @@ class Main extends PApplet {
   }
 
   def setUpShape(pos: PVector): GeoShape = {
-    val shape = GeoShape.getShape(shapeType, pos)
+    val shape = GeoShape.getShape(shapeType, pos, this)
     shape.setRotationAngle(rotationAngle)
     shape
   }
@@ -70,48 +72,9 @@ class Main extends PApplet {
     } else if (key == 'i' || key == 'I') {
       showInitial = !showInitial;
     }else if (key >= 48 && key <= 57){
-      shapeType = key
+      shapeType = key -'0'
+      println("shapeType" + shapeType)
     }
-    redraw();
+    redraw()
   }
 }
-
-
-
-/*
-*
-* void drawPattern() {
-  if (initialShapes.getShapes().size()==0) {
-    return;
-  }
-  //  boolean drawChild = initialShapes.getShapes().size() > 2 ? true : false;
-  fill(17, 130, 67);
-  int yDist = (int)initialShapes.getMaxDistances().y/GRID_SIZE;
-  int xDist = (int)initialShapes.getMaxDistances().x/GRID_SIZE;
-  yDist += 1;
-  xDist += 1;
-  //if (yDist != 0 && xDist != 0) {
-  if (yDist == 0) yDist = 1;
-  if (xDist == 0) xDist = 1;
-
-  for (int y = 0; y < FIELDS; ) {
-    for (int x = 0; x < FIELDS; ) {
-      println("drawing @ "+(x*GRID_SIZE)+", "+(y*GRID_SIZE));
-      initialShapes.getShapes().get(0).draww(new PVector(x*GRID_SIZE, y*GRID_SIZE), true);
-      x += xDist;
-    }
-    y+= yDist;
-  }
-}
-
-void drawInitialShapes() {
-  if (showInitial) {
-    noFill();
-    stroke(240, 0, 230);
-    for (GeoShape s : initialShapes.getShapes ()) {
-      s.drawAtInitialPos();
-    }
-  }
-}
-
-* */

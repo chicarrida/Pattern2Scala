@@ -40,10 +40,10 @@ class InitialShapes {
     tmpShapes ++= shapes
 
     tmpShapes.sortWith(_.position.x > _.position.x)
-    maxDistances.x = tmpShapes(tmpShapes.length - 1).position.x - tmpShapes(0).position.x
+    maxDistances.x = Math.abs(tmpShapes(tmpShapes.length - 1).position.x - tmpShapes(0).position.x)
 
     tmpShapes.sortWith(_.position.y > _.position.y)
-    maxDistances.y = tmpShapes(tmpShapes.length - 1).position.y - tmpShapes(0).position.y
+    maxDistances.y = Math.abs(tmpShapes(tmpShapes.length - 1).position.y - tmpShapes(0).position.y)
   }
 
 }
