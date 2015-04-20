@@ -18,7 +18,7 @@ abstract class GeoShape(val position: PVector, val p: PApplet) {
       val x = parentPos.x + (if (distanceToParent != null) distanceToParent.x else 0)
       val y = parentPos.y + (if (distanceToParent != null) distanceToParent.x else 0)
       p.stroke(0, 0, 255)
-      println("draw at "+x+", "+y)
+      //println("draw at "+x+", "+y)
       transformAndDraw(x, y)
       if (drawChild) {
         drawChlid(x toInt, y toInt)
