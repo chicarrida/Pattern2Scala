@@ -3,7 +3,7 @@
 This is the [PatternRepeater](https://github.com/chicarrida/PatternRepeater) in Scala
 Click to place a shape
 
-Keys:
+Keys:<br>
 1 -> Rectangle <br>
 2 -> Hexagon <br>
 3 -> Triangle <br>
