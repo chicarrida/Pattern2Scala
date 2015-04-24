@@ -9,7 +9,7 @@ class Main extends PApplet {
   val FIELDS: Int = 16
   val shapes = new InitialShapes
   var shapeType: Int = 1
-  var rotationAngle = 0
+  var rotationAngle: Float = 0
   var showInitial: Boolean = true
 
   override def setup() = {
@@ -19,6 +19,7 @@ class Main extends PApplet {
 
   override def draw() = {
     background(125)
+   // testSortingOfShapes()
     noFill()
     drawPattern()
     drawInitialShapes()
@@ -26,14 +27,14 @@ class Main extends PApplet {
   }
 
   def drawPattern() = {
-    if(shapes.shapes.length > 0){
-      fill(17,130,67)
-      val yDist = if(shapes.maxDistances.y == 0) 1 else (shapes.maxDistances.y/GRID_SIZE)+1
-      val xDist = if(shapes.maxDistances.x == 0) 1 else (shapes.maxDistances.x/GRID_SIZE)+1
-      for(y <- 0 to (FIELDS, yDist.asInstanceOf[Int]))
-        for(x <- 0 to (FIELDS, xDist.asInstanceOf[Int])) {
+    if (shapes.shapes.length > 0) {
+      fill(17, 130, 67)
+      val yDist = if (shapes.maxDistances.y == 0) 1 else (shapes.maxDistances.y / GRID_SIZE) + 1
+      val xDist = if (shapes.maxDistances.x == 0) 1 else (shapes.maxDistances.x / GRID_SIZE) + 1
+      for (y <- 0 to(FIELDS, yDist.asInstanceOf[Int]))
+        for (x <- 0 to(FIELDS, xDist.asInstanceOf[Int])) {
           shapes.shapes(0).draww(new PVector(x * GRID_SIZE, y * GRID_SIZE), true)
-          //println("x: " + x+" y: "+y)
+          ellipse(x * GRID_SIZE, y * GRID_SIZE, 5, 5)
         }
     }
   }
@@ -42,7 +43,7 @@ class Main extends PApplet {
     if (showInitial) {
       noFill();
       stroke(240, 0, 230);
-      for ( s <- shapes.shapes) s.drawAtInitialPos
+      for (s <- shapes.shapes) s.drawAtInitialPos
     }
   }
 
@@ -57,24 +58,46 @@ class Main extends PApplet {
   def getCurrentPosition: PVector = {
     val x = ((mouseX + GRID_SIZE / 2) / GRID_SIZE) * GRID_SIZE
     val y = ((mouseY + GRID_SIZE / 2) / GRID_SIZE) * GRID_SIZE
+    println("pos @ " + x + " ," + y)
     new PVector(x, y);
   }
 
   def setUpShape(pos: PVector): GeoShape = {
     val shape = GeoShape.getShape(shapeType, pos, this)
     shape.setRotationAngle(rotationAngle)
+    println("Rotation Angle "+rotationAngle)
     shape
   }
 
-  override def keyPressed(): Unit ={
-    if (key == 'r' || key == 'R') {
+  override def keyPressed(): Unit = {
+    if (key == 'c' || key == 'C') {
       shapes.shapes.clear
     } else if (key == 'i' || key == 'I') {
       showInitial = !showInitial;
-    }else if (key >= 48 && key <= 57){
-      shapeType = key -'0'
+    } else if (key >= 48 && key <= 57) {
+      shapeType = key - '0'
       println("shapeType" + shapeType)
+    } else if (key == 'D' || key == 'd') {
+      shapes.shapes.remove(shapes.shapes.size - 1)
+    }
+    else if (key == 'r' || key == 'R') {
+      rotationAngle += (Math.PI/2).toFloat
     }
     redraw()
   }
+
+
+  def testSortingOfShapes(): Unit = {
+    val t = new Triangle(new PVector(2* GRID_SIZE, 4*GRID_SIZE), this)
+    val r = new Rectangle(new PVector(4* GRID_SIZE, 3* GRID_SIZE), this)
+    val h = new Hexagon(new PVector(4*GRID_SIZE, 5*GRID_SIZE) ,this)
+
+    shapes.addToList(h)
+    shapes.addToList(t)
+    shapes.addToList(r)
+    for(s <- shapes.shapes)println(s)
+    println("max Distances" +shapes.maxDistances.x+", "+ shapes.maxDistances.y)
+
+  }
+
 }

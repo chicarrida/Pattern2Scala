@@ -7,7 +7,7 @@ abstract class GeoShape(val position: PVector, val p: PApplet) {
 
   protected var distanceToParent = new PVector()
   @BeanProperty var child: GeoShape = null
-  @BeanProperty var rotationAngle = 0.0
+  @BeanProperty var rotationAngle: Float = 0
 
   def determineDistanceToParent(parent: GeoShape): Unit = {
     distanceToParent.x = Math.abs(parent.position.x - position.x)
@@ -18,7 +18,6 @@ abstract class GeoShape(val position: PVector, val p: PApplet) {
       val x = parentPos.x + (if (distanceToParent != null) distanceToParent.x else 0)
       val y = parentPos.y + (if (distanceToParent != null) distanceToParent.x else 0)
       p.stroke(0, 0, 255)
-      //println("draw at "+x+", "+y)
       transformAndDraw(x, y)
       if (drawChild) {
         drawChlid(x toInt, y toInt)
@@ -28,6 +27,7 @@ abstract class GeoShape(val position: PVector, val p: PApplet) {
   def transformAndDraw(x: Float, y: Float): Unit = {
     p.pushMatrix()
     p.translate(x, y)
+    p.rotate(rotationAngle)
     drawShape()
     p.popMatrix()
   }
@@ -50,6 +50,7 @@ abstract class GeoShape(val position: PVector, val p: PApplet) {
         case 1 => return new Rectangle(pos,p)
         case 2 => return new Hexagon(pos,p)
         case 3 => return new Triangle(pos,p)
+        case 4 => return new Ellipse(pos,p)
         case _ => return new Rectangle(pos,p)
       }
     }

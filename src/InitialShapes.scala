@@ -15,7 +15,7 @@ class InitialShapes {
 
   def sortShapes: Unit = {
     shapes.sortWith { (a, b) =>
-      if (b.position.x > a.position.x && b.position.y >= a.position.y) {
+      if (a.position.x < b.position.x && a.position.y <= b.position.y) {
         false
       } else {
         true
@@ -45,5 +45,4 @@ class InitialShapes {
     tmpShapes.sortWith(_.position.y > _.position.y)
     maxDistances.y = Math.abs(tmpShapes(tmpShapes.length - 1).position.y - tmpShapes(0).position.y)
   }
-
 }
