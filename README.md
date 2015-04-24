@@ -1,6 +1,6 @@
 # Pattern2Scala
 
-This is the [PatternRepeater](https://github.com/chicarrida/PatternRepeater) in Scala
+This is the [PatternRepeater](https://github.com/chicarrida/PatternRepeater) in Scala<br>
 Click to place a shape
 
 Keys:<br>
