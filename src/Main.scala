@@ -66,7 +66,6 @@ class Main extends PApplet {
     val pos = getCurrentPosition
     val shape = setUpShape(pos)
     shapes.addToList(shape)
-    println("mousse released")
     changes = true
     redraw()
   }
@@ -75,14 +74,14 @@ class Main extends PApplet {
   def getCurrentPosition: PVector = {
     val x = ((mouseX + GRID_SIZE / 2) / GRID_SIZE) * GRID_SIZE
     val y = ((mouseY + GRID_SIZE / 2) / GRID_SIZE) * GRID_SIZE
-    println("pos @ " + x + " ," + y)
+    //println("pos @ " + x + " ," + y)
     new PVector(x, y);
   }
 
   def setUpShape(pos: PVector): GeoShape = {
     val shape = GeoShape.getShape(shapeType, pos, this, GRID_SIZE)
     shape.setRotationAngle(rotationAngle)
-    println("Rotation Angle "+rotationAngle)
+    //println("Rotation Angle "+rotationAngle)
     shape
   }
 
@@ -94,7 +93,7 @@ class Main extends PApplet {
     } else if (key >= 48 && key <= 57) {
       shapeType = key - '0'
       currentShape = GeoShape.getShape(shapeType, new PVector(mouseX, mouseY), this, GRID_SIZE)
-      println("shapeType" + shapeType)
+      //println("shapeType" + shapeType)
     } else if (key == 'D' || key == 'd') {
       shapes.shapes.remove(shapes.shapes.size - 1)
     }
