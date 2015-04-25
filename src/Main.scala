@@ -106,7 +106,7 @@ class Main extends PApplet {
     shapes.addToList(r)
     for(s <- shapes.shapes)println(s)
     println("max Distances" +shapes.maxDistances.x+", "+ shapes.maxDistances.y)
-
+  
   }
 
 }

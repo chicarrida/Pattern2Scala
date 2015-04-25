@@ -1,3 +1,5 @@
 target/
 out/
 project/
+trg/
+**/*.class
