@@ -3,7 +3,7 @@ import processing.core.{PVector, PApplet}
 import scala.beans.BeanProperty
 
 
-abstract class GeoShape(val position: PVector, val p: PApplet, val a:Int) {
+abstract class GeoShape(var position: PVector, val p: PApplet, val a:Int) {
 
   protected var distanceToParent = new PVector()
   @BeanProperty var child: GeoShape = null
@@ -43,7 +43,16 @@ abstract class GeoShape(val position: PVector, val p: PApplet, val a:Int) {
   def drawAtInitialPos(): Unit = {
     transformAndDraw(position.x toInt, position.y toInt)
   }
+
+  def drawGhost(x: Float, y: Float): Unit ={
+    //println("draw ghost at "+x+" ,"+y)
+    p.noFill()
+    p.stroke(255,0,0)
+    transformAndDraw(x,y)
+  }
 }
+
+
   object GeoShape {
     def getShape(s: Int, pos: PVector, p: PApplet, size:Int): GeoShape = {
       s match {

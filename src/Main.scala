@@ -1,6 +1,6 @@
 
 
-import processing.core.{PVector, PApplet}
+import processing.core.{PImage, PVector, PApplet}
 
 
 class Main extends PApplet {
@@ -11,7 +11,9 @@ class Main extends PApplet {
   var shapeType: Int = 1
   var rotationAngle: Float = 0
   var showInitial: Boolean = true
-
+  var currentShape: GeoShape = new Rectangle(new PVector(-50, -50), this, 40)
+  var img: PImage = null
+  var changes: Boolean = true
   override def setup() = {
     size(GRID_SIZE * FIELDS, GRID_SIZE * FIELDS)
     noLoop()
@@ -19,12 +21,24 @@ class Main extends PApplet {
 
   override def draw() = {
     background(125)
+    //if(changes){
+      drawPattern()
+    //  println("if thingy")
+      changes = false
+      //image(img, 0, 0)
+    //}
+   // frameRate(12)
    // testSortingOfShapes()
-    noFill()
-    drawPattern()
+   // noFill()(
     drawInitialShapes()
-    noLoop()
+    loop()
+   currentShape.drawGhost(mouseX, mouseY)
+
   }
+
+ // override def mouseMoved(): Unit ={
+ //   ellipse(mouseX, mouseY, 10, 10)
+  //}
 
   def drawPattern() = {
     if (shapes.shapes.length > 0) {
@@ -34,9 +48,10 @@ class Main extends PApplet {
       for (y <- 0 to(FIELDS, yDist.asInstanceOf[Int]))
         for (x <- 0 to(FIELDS, xDist.asInstanceOf[Int])) {
           shapes.shapes(0).draww(new PVector(x * GRID_SIZE, y * GRID_SIZE), true)
-          ellipse(x * GRID_SIZE, y * GRID_SIZE, 5, 5)
+         // ellipse(x * GRID_SIZE, y * GRID_SIZE, 5, 5)
         }
     }
+    img = get()
   }
 
   def drawInitialShapes() = {
@@ -51,6 +66,8 @@ class Main extends PApplet {
     val pos = getCurrentPosition
     val shape = setUpShape(pos)
     shapes.addToList(shape)
+    println("mousse released")
+    changes = true
     redraw()
   }
 
@@ -73,15 +90,17 @@ class Main extends PApplet {
     if (key == 'c' || key == 'C') {
       shapes.shapes.clear
     } else if (key == 'i' || key == 'I') {
-      showInitial = !showInitial;
+      showInitial = !showInitial
     } else if (key >= 48 && key <= 57) {
       shapeType = key - '0'
+      currentShape = GeoShape.getShape(shapeType, new PVector(mouseX, mouseY), this, GRID_SIZE)
       println("shapeType" + shapeType)
     } else if (key == 'D' || key == 'd') {
       shapes.shapes.remove(shapes.shapes.size - 1)
     }
     else if (key == 'r' || key == 'R') {
       rotationAngle += (Math.PI/2).toFloat
+      currentShape.rotationAngle = rotationAngle
     }
     redraw()
   }
