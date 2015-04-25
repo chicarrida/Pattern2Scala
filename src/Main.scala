@@ -63,7 +63,7 @@ class Main extends PApplet {
   }
 
   def setUpShape(pos: PVector): GeoShape = {
-    val shape = GeoShape.getShape(shapeType, pos, this)
+    val shape = GeoShape.getShape(shapeType, pos, this, GRID_SIZE)
     shape.setRotationAngle(rotationAngle)
     println("Rotation Angle "+rotationAngle)
     shape
@@ -88,9 +88,9 @@ class Main extends PApplet {
 
 
   def testSortingOfShapes(): Unit = {
-    val t = new Triangle(new PVector(2* GRID_SIZE, 4*GRID_SIZE), this)
-    val r = new Rectangle(new PVector(4* GRID_SIZE, 3* GRID_SIZE), this)
-    val h = new Hexagon(new PVector(4*GRID_SIZE, 5*GRID_SIZE) ,this)
+    val t = new Triangle(new PVector(2* GRID_SIZE, 4*GRID_SIZE), this, GRID_SIZE)
+    val r = new Rectangle(new PVector(4* GRID_SIZE, 3* GRID_SIZE), this, GRID_SIZE)
+    val h = new Hexagon(new PVector(4*GRID_SIZE, 5*GRID_SIZE) ,this, GRID_SIZE)
 
     shapes.addToList(h)
     shapes.addToList(t)

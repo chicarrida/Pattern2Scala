@@ -1,9 +1,9 @@
 import processing.core.{PApplet, PVector}
 
 
-class Triangle ( pos: PVector,  _p: PApplet) extends GeoShape(pos, _p){
+class Triangle ( pos: PVector,  _p: PApplet, a: Int) extends GeoShape(pos, _p, a){
 
   def drawShape(): Unit ={
-    p.triangle(-20,0,0,40,20,0)
+    p.triangle(-a/2,0,0,a,a/2,0)
   }
 }
