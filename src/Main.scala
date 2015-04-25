@@ -21,24 +21,18 @@ class Main extends PApplet {
 
   override def draw() = {
     background(125)
-    //if(changes){
+    //if(changes){                  //FIXME mel: write to image
       drawPattern()
-    //  println("if thingy")
       changes = false
       //image(img, 0, 0)
     //}
    // frameRate(12)
-   // testSortingOfShapes()
-   // noFill()(
+   // testSortingOfShapes()         //FIXME mel: get this test right
     drawInitialShapes()
     loop()
    currentShape.drawGhost(mouseX, mouseY)
 
   }
-
- // override def mouseMoved(): Unit ={
- //   ellipse(mouseX, mouseY, 10, 10)
-  //}
 
   def drawPattern() = {
     if (shapes.shapes.length > 0) {
@@ -48,7 +42,7 @@ class Main extends PApplet {
       for (y <- 0 to(FIELDS, yDist.asInstanceOf[Int]))
         for (x <- 0 to(FIELDS, xDist.asInstanceOf[Int])) {
           shapes.shapes(0).draww(new PVector(x * GRID_SIZE, y * GRID_SIZE), true)
-         // ellipse(x * GRID_SIZE, y * GRID_SIZE, 5, 5)
+          ellipse(x * GRID_SIZE, y * GRID_SIZE, 5, 5)      //for debugging
         }
     }
     img = get()
@@ -74,14 +68,12 @@ class Main extends PApplet {
   def getCurrentPosition: PVector = {
     val x = ((mouseX + GRID_SIZE / 2) / GRID_SIZE) * GRID_SIZE
     val y = ((mouseY + GRID_SIZE / 2) / GRID_SIZE) * GRID_SIZE
-    //println("pos @ " + x + " ," + y)
     new PVector(x, y);
   }
 
   def setUpShape(pos: PVector): GeoShape = {
     val shape = GeoShape.getShape(shapeType, pos, this, GRID_SIZE)
     shape.setRotationAngle(rotationAngle)
-    //println("Rotation Angle "+rotationAngle)
     shape
   }
 
@@ -93,7 +85,6 @@ class Main extends PApplet {
     } else if (key >= 48 && key <= 57) {
       shapeType = key - '0'
       currentShape = GeoShape.getShape(shapeType, new PVector(mouseX, mouseY), this, GRID_SIZE)
-      //println("shapeType" + shapeType)
     } else if (key == 'D' || key == 'd') {
       shapes.shapes.remove(shapes.shapes.size - 1)
     }
