@@ -8,6 +8,7 @@ Keys:<br>
 2 -> Hexagon <br>
 3 -> Triangle <br>
 4 -> Thingy(supposed to be an Ellipse like thing...)<br>
+5 -> Small rect <br>
 
 
 r/R -> Rotate<br>
