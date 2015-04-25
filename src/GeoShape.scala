@@ -3,7 +3,7 @@ import processing.core.{PVector, PApplet}
 import scala.beans.BeanProperty
 
 
-abstract class GeoShape(val position: PVector, val p: PApplet) {
+abstract class GeoShape(val position: PVector, val p: PApplet, val a:Int) {
 
   protected var distanceToParent = new PVector()
   @BeanProperty var child: GeoShape = null
@@ -45,13 +45,14 @@ abstract class GeoShape(val position: PVector, val p: PApplet) {
   }
 }
   object GeoShape {
-    def getShape(s: Int, pos: PVector, p: PApplet): GeoShape = {
+    def getShape(s: Int, pos: PVector, p: PApplet, size:Int): GeoShape = {
       s match {
-        case 1 => return new Rectangle(pos,p)
-        case 2 => return new Hexagon(pos,p)
-        case 3 => return new Triangle(pos,p)
-        case 4 => return new Ellipse(pos,p)
-        case _ => return new Rectangle(pos,p)
+        case 1 => return new Rectangle(pos,p,size)
+        case 2 => return new Hexagon(pos,p,size)
+        case 3 => return new Triangle(pos,p,size)
+        case 4 => return new Ellipse(pos,p,size)
+        case 5 => return new Rectangle(pos,p,size/2) // small rectangle
+        case _ => return new Rectangle(pos,p,size)
       }
     }
   }
