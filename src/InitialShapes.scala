@@ -37,15 +37,14 @@ class InitialShapes {
   def calculateMaxDistances: Unit = {
 
     var tmpShapes = new ArrayBuffer[GeoShape]
-    var xSorted = new ArrayBuffer[GeoShape]
-    var ySorted = new ArrayBuffer[GeoShape]
+
     tmpShapes ++= shapes
 
-    xSorted = tmpShapes.sortWith(_.position.x < _.position.x)
-    maxDistances.x = Math.abs(xSorted(xSorted.length - 1).position.x - xSorted(0).position.x)
+    tmpShapes = tmpShapes.sortWith(_.position.x < _.position.x)
+    maxDistances.x = Math.abs(tmpShapes(tmpShapes.length - 1).position.x - tmpShapes(0).position.x)
 
-    ySorted = tmpShapes.sortWith(_.position.y < _.position.y)
-    maxDistances.y = Math.abs(ySorted(ySorted.length - 1).position.y - ySorted(0).position.y)
+    tmpShapes = tmpShapes.sortWith(_.position.y < _.position.y)
+    maxDistances.y = Math.abs(tmpShapes(tmpShapes.length - 1).position.y - tmpShapes(0).position.y)
 
   }
 }

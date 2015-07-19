@@ -104,7 +104,6 @@ val test: Boolean = false
     shapes.addToList(r)
     for(s <- shapes.shapes)println(s, s.position.x, s.position.y)
     println("max Distances" +shapes.maxDistances.x+", "+ shapes.maxDistances.y)
-    //println(shapes)
     drawPattern()
   
   }
