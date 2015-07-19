@@ -1,6 +1,6 @@
 import processing.core.{PApplet, PVector}
 
-class Ellipse ( pos: PVector,  _p: PApplet, a:Int) extends GeoShape(pos, _p, a ){
+class  Ellipse ( pos: PVector,  _p: PApplet, a:Int) extends GeoShape(pos, _p, a ){
   override def drawShape(): Unit ={
     p.beginShape()
 

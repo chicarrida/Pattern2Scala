@@ -5,7 +5,7 @@ import processing.core.{PImage, PVector, PApplet}
 
 class Main extends PApplet {
 
-  val GRID_SIZE: Int = 40;
+  val GRID_SIZE: Int = 60;
   val FIELDS: Int = 16
   val shapes = new InitialShapes
   var shapeType: Int = 1
@@ -14,22 +14,20 @@ class Main extends PApplet {
   var currentShape: GeoShape = new Rectangle(new PVector(-50, -50), this, 40)
   var img: PImage = null
   var changes: Boolean = true
+val test: Boolean = false
+
   override def setup() = {
     size(GRID_SIZE * FIELDS, GRID_SIZE * FIELDS)
-    noLoop()
+    if (test) {
+      noLoop()
+      testSortingOfShapes()
+    }
   }
 
   override def draw() = {
     background(125)
-    //if(changes){                  //FIXME mel: write to image
-      drawPattern()
-      changes = false
-      //image(img, 0, 0)
-    //}
-   // frameRate(12)
-   // testSortingOfShapes()         //FIXME mel: get this test right
+     drawPattern()
     drawInitialShapes()
-    loop()
    currentShape.drawGhost(mouseX, mouseY)
 
   }
@@ -104,8 +102,10 @@ class Main extends PApplet {
     shapes.addToList(h)
     shapes.addToList(t)
     shapes.addToList(r)
-    for(s <- shapes.shapes)println(s)
+    for(s <- shapes.shapes)println(s, s.position.x, s.position.y)
     println("max Distances" +shapes.maxDistances.x+", "+ shapes.maxDistances.y)
+    //println(shapes)
+    drawPattern()
   
   }
 

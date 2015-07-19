@@ -36,13 +36,16 @@ class InitialShapes {
 
   def calculateMaxDistances: Unit = {
 
-    val tmpShapes = new ArrayBuffer[GeoShape]
+    var tmpShapes = new ArrayBuffer[GeoShape]
+    var xSorted = new ArrayBuffer[GeoShape]
+    var ySorted = new ArrayBuffer[GeoShape]
     tmpShapes ++= shapes
 
-    tmpShapes.sortWith(_.position.x > _.position.x)
-    maxDistances.x = Math.abs(tmpShapes(tmpShapes.length - 1).position.x - tmpShapes(0).position.x)
+    xSorted = tmpShapes.sortWith(_.position.x < _.position.x)
+    maxDistances.x = Math.abs(xSorted(xSorted.length - 1).position.x - xSorted(0).position.x)
 
-    tmpShapes.sortWith(_.position.y > _.position.y)
-    maxDistances.y = Math.abs(tmpShapes(tmpShapes.length - 1).position.y - tmpShapes(0).position.y)
+    ySorted = tmpShapes.sortWith(_.position.y < _.position.y)
+    maxDistances.y = Math.abs(ySorted(ySorted.length - 1).position.y - ySorted(0).position.y)
+
   }
 }
